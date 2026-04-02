@@ -6,7 +6,7 @@
     <meta http-equiv="pragma" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hotspot Reyhan Azka</title>
+    <title>Reyhan Hotspot</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
@@ -30,7 +30,6 @@
             align-items: center;
         }
 
-        /* Background hutan */
         .bg {
             position: absolute;
             width: 100%;
@@ -40,7 +39,6 @@
             z-index: 1;
         }
 
-        /* overlay hijau */
         .overlay {
             position: absolute;
             width: 100%;
@@ -49,7 +47,6 @@
             z-index: 2;
         }
 
-        /* container */
         .login-container {
             position: relative;
             z-index: 3;
@@ -63,20 +60,20 @@
             box-shadow: 0 0 25px #00ff88;
         }
 
-        /* Neon text */
         h1 {
             color: #00ff88;
             margin-bottom: 20px;
-            text-shadow:
-                0 0 5px #00ff88,
-                0 0 10px #00ff88,
-                0 0 20px #00ff88;
+            text-shadow: 0 0 20px #00ff88;
         }
 
         .info {
             font-size: 0.9rem;
             margin-bottom: 20px;
             color: #bfffdc;
+        }
+
+        .error {
+            color: #ff6666;
         }
 
         label {
@@ -94,7 +91,6 @@
             background: transparent;
             color: #00ff88;
             outline: none;
-            box-shadow: 0 0 10px rgba(0,255,136,0.5);
         }
 
         input::placeholder {
@@ -111,6 +107,84 @@
             font-weight: bold;
             cursor: pointer;
             transition: 0.3s;
+            box-shadow: 0 0 15px #00ff88;
+        }
+
+        input[type="submit"]:hover {
+            background: #00cc66;
+        }
+
+        .powered {
+            margin-top: 20px;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="bg"></div>
+<div class="overlay"></div>
+
+<!-- CHAP SUPPORT -->
+$(if chap-id)
+<form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+    <input type="hidden" name="username" />
+    <input type="hidden" name="password" />
+    <input type="hidden" name="dst" value="$(link-orig)" />
+    <input type="hidden" name="popup" value="true" />
+</form>
+
+<script src="/md5.js"></script>
+<script>
+function doLogin() {
+    document.sendin.username.value = document.login.username.value;
+    document.sendin.password.value =
+        hexMD5('$(chap-id)' + document.login.password.value + '$(chap-challenge)');
+    document.sendin.submit();
+    return false;
+}
+</script>
+$(endif)
+
+<div class="login-container">
+    <h1>🌿Reyhan Hotspot🌿</h1>
+
+    <p class="info">
+        $(if error)<span class="error">$(error)</span>$(endif)
+        $(if error == "")Login untuk menikmati internet$(endif)
+        $(if trial == 'yes')<br>
+        <a href="$(link-login-only)?dst=$(link-orig-esc)&username=T-$(mac-esc)" style="color:#00ff88;">
+            Coba gratis
+        </a>
+        $(endif)
+    </p>
+
+    <form name="login" action="$(link-login-only)" method="post"
+        $(if chap-id) onSubmit="return doLogin()" $(endif)>
+
+        <input type="hidden" name="dst" value="$(link-orig)" />
+        <input type="hidden" name="popup" value="true" />
+
+        <label>
+            Username
+            <input type="text" name="username" value="$(username)" placeholder="Masukkan username">
+        </label>
+
+        <label>
+            Password
+            <input type="password" name="password" placeholder="Masukkan password">
+        </label>
+
+        <input type="submit" value="Connect">
+    </form>
+
+    <p class="powered">Powered by MikroTik RouterOS</p>
+</div>
+
+</body>
+</html>            transition: 0.3s;
             box-shadow: 0 0 15px #00ff88;
         }
 
